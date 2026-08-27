@@ -7,142 +7,169 @@
 <meta name="description" content="Huellario es la app donde toda la familia coordina el cuidado de sus mascotas: rutinas, alimentación, prevención, registros de salud e informes para el veterinario.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Nunito+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bosque:#1E3D2F;
-    --salvia:#E9F0E3;
-    --papel:#FDFCF8;
-    --corazon:#E85D75;
-    --tinta:#26221B;
-    --miel:#D9A441;
-    --tinta-suave:#5C564A;
-    --radius:18px;
+    /* Tokens de theme.ts de la app */
+    --background:#FAFAFA; --surface:#FFFFFF; --border:#E5E5E5;
+    --primary:#FF5A1A; --primary-light:#FF7A42; --primary-dark:#CC4410; --primary-subtle:#FFF0E8;
+    --accent:#A78BFA; --accent-light:#C4B5FD; --accent-subtle:#DDD6FE;
+    --mint:#5EEAD4; --mint-soft:#CCFBF1; --mint-dark:#0F766E;
+    --yellow:#FCD34D; --yellow-soft:#FEF3C7; --yellow-dark:#92400E;
+    --blue:#60A5FA; --blue-soft:#BFDBFE; --blue-dark:#1D4ED8;
+    --pink:#F472B6; --pink-soft:#FBCFE8;
+    --success:#4ADE80; --success-subtle:#DCFCE7;
+    --text:#374151; --text-sec:#9CA3AF;
+    --r-sm:12px; --r-md:16px; --r-lg:20px; --r-xl:24px;
+    --shadow-sm:0 2px 12px rgba(167,139,250,.08);
+    --shadow-md:0 6px 18px rgba(167,139,250,.12);
+    --shadow-lg:0 10px 28px rgba(167,139,250,.14);
   }
   *{margin:0;padding:0;box-sizing:border-box}
   html{scroll-behavior:smooth}
   body{
-    font-family:'Nunito Sans',system-ui,sans-serif;
-    color:var(--tinta);
-    background:var(--salvia);
+    font-family:'Nunito',system-ui,sans-serif;
+    background:var(--background);
+    color:var(--text);
     line-height:1.6;
+    overflow-x:hidden;
   }
-  h1,h2,h3{font-family:'Fraunces',serif;line-height:1.15;font-weight:600}
-  a{color:inherit}
-  .wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+  h1,h2,h3{font-weight:800;line-height:1.2;color:var(--text)}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 24px;position:relative}
+
+  /* Fondo decorativo: siluetas pastel flotantes, como en la app */
+  .deco{position:fixed;inset:0;pointer-events:none;z-index:0}
+  .deco span{position:absolute;font-size:26px;opacity:.5;filter:saturate(.9)}
+  main,header,footer{position:relative;z-index:1}
 
   /* Header */
-  header{padding:22px 0}
+  header{padding:20px 0}
   .nav{display:flex;align-items:center;justify-content:space-between;gap:16px}
-  .brand{display:flex;align-items:center;gap:10px;font-family:'Fraunces',serif;font-weight:700;font-size:1.35rem;text-decoration:none}
-  .brand svg{width:34px;height:34px}
-  .nav-links{display:flex;gap:26px;font-weight:700;font-size:.95rem}
-  .nav-links a{text-decoration:none;color:var(--tinta-suave)}
-  .nav-links a:hover,.nav-links a:focus-visible{color:var(--bosque)}
-  a:focus-visible,button:focus-visible{outline:3px solid var(--corazon);outline-offset:3px;border-radius:6px}
+  .brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.3rem;text-decoration:none;color:var(--text)}
+  .brand .mark{width:42px;height:42px;border-radius:14px;background:var(--primary);display:grid;place-items:center;box-shadow:0 4px 12px rgba(255,90,26,.35)}
+  .brand .mark svg{width:26px;height:26px}
+  .nav-links{display:flex;gap:24px;font-weight:700;font-size:.95rem}
+  .nav-links a{text-decoration:none;color:var(--text-sec)}
+  .nav-links a:hover,.nav-links a:focus-visible{color:var(--primary)}
+  a:focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:8px}
+
+  /* Botón CTA — pastilla naranja como en la app */
+  .cta{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:#fff;text-decoration:none;font-weight:800;font-size:1.02rem;padding:14px 28px;border-radius:9999px;box-shadow:0 6px 18px rgba(255,90,26,.35);transition:transform .15s ease,background .15s ease}
+  .cta:hover{transform:translateY(-2px);background:var(--primary-light)}
+  .cta.secundario{background:var(--surface);color:var(--primary);border:2px solid var(--primary);box-shadow:none}
+
+  .pill{display:inline-block;font-weight:800;font-size:.78rem;letter-spacing:.06em;text-transform:uppercase;color:var(--primary-dark);background:var(--primary-subtle);border-radius:9999px;padding:7px 14px;margin-bottom:18px}
 
   /* Hero */
-  .hero{padding:48px 0 72px}
-  .hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:56px;align-items:center}
-  .eyebrow{display:inline-block;font-weight:800;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--bosque);background:var(--papel);border:1.5px solid var(--bosque);border-radius:999px;padding:6px 14px;margin-bottom:20px}
-  .hero h1{font-size:clamp(2.3rem,5vw,3.4rem);color:var(--bosque);margin-bottom:18px}
-  .hero h1 em{font-style:italic;color:var(--corazon)}
-  .hero p{font-size:1.15rem;color:var(--tinta-suave);max-width:44ch;margin-bottom:30px}
-  .cta{display:inline-flex;align-items:center;gap:10px;background:var(--corazon);color:#fff;text-decoration:none;font-weight:800;font-size:1.05rem;padding:15px 26px;border-radius:999px;box-shadow:0 6px 0 rgba(30,61,47,.18);transition:transform .15s ease}
-  .cta:hover{transform:translateY(-2px)}
-  .cta-note{display:block;margin-top:12px;font-size:.85rem;color:var(--tinta-suave)}
+  .hero{padding:40px 0 80px}
+  .hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
+  .hero h1{font-size:clamp(2.1rem,5vw,3.2rem);margin-bottom:16px}
+  .hero h1 em{font-style:normal;color:var(--primary)}
+  .hero p{font-size:1.12rem;color:var(--text-sec);font-weight:600;max-width:44ch;margin-bottom:28px}
+  .cta-note{display:block;margin-top:12px;font-size:.85rem;color:var(--text-sec);font-weight:600}
 
-  /* Tarjeta de coordinación (elemento firma) */
-  .card-stack{position:relative}
-  .rutina-card{
-    background:var(--papel);border-radius:var(--radius);
-    box-shadow:0 18px 40px rgba(30,61,47,.16);
-    padding:22px;max-width:400px;margin-left:auto;
-  }
-  .rutina-card .titulo{display:flex;align-items:center;gap:10px;margin-bottom:16px}
-  .rutina-card .titulo .pet{width:42px;height:42px;border-radius:50%;background:var(--miel);display:grid;place-items:center;font-size:1.3rem}
-  .rutina-card .titulo strong{font-family:'Fraunces',serif;font-size:1.1rem}
-  .rutina-card .titulo span{display:block;font-size:.8rem;color:var(--tinta-suave)}
-  .tarea{display:flex;align-items:center;gap:12px;padding:11px 12px;border-radius:12px;margin-bottom:8px;background:var(--salvia)}
-  .tarea:last-child{margin-bottom:0}
-  .check{width:26px;height:26px;border-radius:50%;flex-shrink:0;display:grid;place-items:center;border:2px solid var(--bosque);color:#fff;font-weight:800;font-size:.85rem}
-  .hecha .check{background:var(--bosque);border-color:var(--bosque)}
-  .pend .check{border-color:var(--miel);color:transparent}
-  .tarea .txt{flex:1;font-size:.93rem;font-weight:700}
-  .tarea .quien{font-size:.75rem;color:var(--tinta-suave);font-weight:600}
-  .hecha .txt{text-decoration:line-through;text-decoration-color:rgba(38,34,27,.35);text-decoration-thickness:2px}
-  .aviso{
-    position:absolute;left:-8px;bottom:-26px;background:var(--bosque);color:#fff;
-    border-radius:14px;padding:12px 16px;font-size:.85rem;font-weight:700;
-    box-shadow:0 12px 26px rgba(30,61,47,.28);max-width:290px;display:flex;gap:10px;align-items:center;
-  }
-  .aviso svg{flex-shrink:0}
+  /* Teléfonos */
+  .phone{background:var(--surface);border:1px solid var(--border);border-radius:36px;padding:10px;box-shadow:var(--shadow-lg);max-width:290px}
+  .phone img{display:block;width:100%;border-radius:28px}
+  .hero-phone{position:relative;margin-left:auto}
   @media (prefers-reduced-motion:no-preference){
-    .rutina-card{animation:flotar 6s ease-in-out infinite}
-    .aviso{animation:aparecer .8s ease .9s both}
-    @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-    @keyframes aparecer{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+    .hero-phone{animation:flotar 6s ease-in-out infinite}
+    @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
   }
+  .toast{
+    position:absolute;left:-120px;bottom:56px;background:var(--surface);border-radius:var(--r-md);
+    padding:12px 16px;font-size:.85rem;font-weight:700;box-shadow:var(--shadow-md);
+    display:flex;gap:10px;align-items:center;max-width:250px;border:1px solid var(--border)
+  }
+  .toast .ok{width:30px;height:30px;border-radius:50%;background:var(--success-subtle);display:grid;place-items:center;flex-shrink:0}
 
   /* Secciones */
-  section{padding:72px 0}
-  .sec-title{font-size:clamp(1.7rem,3.5vw,2.3rem);color:var(--bosque);margin-bottom:14px}
-  .sec-sub{color:var(--tinta-suave);max-width:56ch;margin-bottom:44px}
+  section{padding:64px 0}
+  .sec-title{font-size:clamp(1.6rem,3.5vw,2.2rem);margin-bottom:10px}
+  .sec-title em{font-style:normal;color:var(--primary)}
+  .sec-sub{color:var(--text-sec);font-weight:600;max-width:58ch;margin-bottom:40px}
 
-  .pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .paso{background:var(--papel);border-radius:var(--radius);padding:26px}
-  .paso .icono{font-size:1.7rem;margin-bottom:12px}
-  .paso h3{font-size:1.15rem;margin-bottom:8px}
-  .paso p{font-size:.95rem;color:var(--tinta-suave)}
+  .card{background:var(--surface);border-radius:var(--r-xl);box-shadow:var(--shadow-sm);padding:26px}
 
-  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-  .feature{background:var(--papel);border-radius:var(--radius);padding:24px;border-top:5px solid var(--salvia)}
-  .feature:nth-child(odd){border-top-color:var(--miel)}
-  .feature:nth-child(even){border-top-color:var(--corazon)}
-  .feature h3{font-size:1.08rem;margin-bottom:8px}
-  .feature p{font-size:.93rem;color:var(--tinta-suave)}
+  .pasos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .paso .icono{width:56px;height:56px;border-radius:var(--r-md);display:grid;place-items:center;font-size:1.6rem;margin-bottom:14px}
+  .paso:nth-child(1) .icono{background:var(--primary-subtle)}
+  .paso:nth-child(2) .icono{background:var(--accent-subtle)}
+  .paso:nth-child(3) .icono{background:var(--mint-soft)}
+  .paso h3{font-size:1.12rem;margin-bottom:6px}
+  .paso p{font-size:.95rem;color:var(--text-sec);font-weight:600}
 
-  /* Banda familia */
-  .familia{background:var(--bosque);color:#fff;border-radius:28px;padding:56px 48px;margin:0 24px}
-  .familia-inner{max-width:1032px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
-  .familia h2{color:#fff;font-size:clamp(1.7rem,3.5vw,2.2rem);margin-bottom:16px}
-  .familia h2 em{font-style:italic;color:var(--miel)}
-  .familia p{color:#D8E4DA;margin-bottom:14px}
-  .familia ul{list-style:none}
-  .familia li{display:flex;gap:12px;margin-bottom:14px;color:#EDF3EE;font-weight:600}
-  .familia li::before{content:"✓";color:var(--miel);font-weight:800}
+  /* Funciones — un color de identidad por sección, como la app */
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .feature{border-radius:var(--r-lg);padding:22px;box-shadow:var(--shadow-sm);background:var(--surface)}
+  .feature .tag{width:46px;height:46px;border-radius:var(--r-sm);display:grid;place-items:center;font-size:1.35rem;margin-bottom:12px}
+  .f-prevencion .tag{background:var(--yellow-soft)}
+  .f-rutinas .tag{background:var(--accent-subtle)}
+  .f-alimentacion .tag{background:var(--blue-soft)}
+  .f-registros .tag{background:var(--mint-soft)}
+  .f-informe .tag{background:var(--primary-subtle)}
+  .f-familia .tag{background:var(--pink-soft)}
+  .feature h3{font-size:1.05rem;margin-bottom:6px}
+  .feature p{font-size:.92rem;color:var(--text-sec);font-weight:600}
 
-  /* Descarga */
+  /* Galería de pantallas reales */
+  .galeria{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;justify-items:center}
+  .galeria figure{text-align:center}
+  .galeria figcaption{margin-top:14px;font-weight:800;font-size:.95rem}
+  .galeria figcaption span{display:block;font-weight:600;color:var(--text-sec);font-size:.85rem}
+
+  /* Banda familia — lila, el segundo protagonista */
+  .familia-card{background:var(--accent-subtle);border-radius:28px;padding:48px 44px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;box-shadow:var(--shadow-md)}
+  .familia-card h2{font-size:clamp(1.6rem,3.5vw,2.1rem);margin-bottom:12px}
+  .familia-card .intro{color:var(--text);font-weight:600;opacity:.85}
+  .familia-card ul{list-style:none}
+  .familia-card li{display:flex;gap:10px;margin-bottom:12px;font-weight:700;background:var(--surface);border-radius:var(--r-md);padding:12px 16px;box-shadow:var(--shadow-sm)}
+
   .descarga{text-align:center}
-  .descarga .cta{margin-top:6px}
+  .descarga .sec-sub{margin-inline:auto}
 
-  footer{background:var(--bosque);color:#C9D8CC;margin-top:72px;padding:40px 0;font-size:.9rem}
-  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px;align-items:center}
-  .foot a{color:#fff;text-decoration:none;font-weight:700;margin-left:22px}
-  .foot a:hover{text-decoration:underline}
+  footer{border-top:1px solid var(--border);background:var(--surface);margin-top:40px;padding:32px 0;font-size:.9rem;color:var(--text-sec);font-weight:600}
+  .foot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;align-items:center}
+  .foot a{color:var(--text);text-decoration:none;font-weight:800;margin-left:20px}
+  .foot a:hover{color:var(--primary)}
 
-  @media (max-width:840px){
-    .hero-grid,.familia-inner{grid-template-columns:1fr;gap:36px}
-    .pasos,.features{grid-template-columns:1fr}
-    .rutina-card{margin:0 auto}
-    .aviso{left:8px}
+  @media (max-width:860px){
+    .hero-grid,.familia-card{grid-template-columns:1fr;gap:32px}
+    .pasos,.features,.galeria{grid-template-columns:1fr}
+    .hero-phone{margin:0 auto}
+    .toast{left:-4px;bottom:24px}
     .nav-links{display:none}
-    .familia{padding:40px 26px}
+    .familia-card{padding:36px 24px}
+    .galeria .phone{max-width:260px}
   }
 </style>
 </head>
 <body>
 
+<!-- Siluetas decorativas flotantes, como el fondo de la app -->
+<div class="deco" aria-hidden="true">
+  <span style="top:8%;left:4%">🐾</span>
+  <span style="top:16%;right:6%;font-size:20px">💜</span>
+  <span style="top:34%;left:12%;font-size:18px">🦴</span>
+  <span style="top:46%;right:10%">🐾</span>
+  <span style="top:60%;left:5%;font-size:20px">🧡</span>
+  <span style="top:72%;right:4%;font-size:18px">🐟</span>
+  <span style="top:86%;left:14%;font-size:20px">🐾</span>
+  <span style="top:90%;right:16%;font-size:18px">💛</span>
+</div>
+
 <header class="wrap">
   <nav class="nav" aria-label="Principal">
     <a class="brand" href="#">
-      <!-- Huella con corazón -->
-      <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#1E3D2F"><ellipse cx="16" cy="18" rx="7" ry="9"/><ellipse cx="48" cy="18" rx="7" ry="9"/><ellipse cx="7" cy="34" rx="6" ry="8"/><ellipse cx="57" cy="34" rx="6" ry="8"/><path d="M32 26c-11 0-19 8.5-19 17.5C13 53 21 58 32 58s19-5 19-14.5C51 34.5 43 26 32 26z"/></g><path fill="#E85D75" d="M32 51.5l-6.8-6.4c-2.9-2.7-2.9-6.9 0-9.2 2.3-1.9 5.3-1.4 6.8.6 1.5-2 4.5-2.5 6.8-.6 2.9 2.3 2.9 6.5 0 9.2L32 51.5z"/></svg>
+      <span class="mark">
+        <svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#FFFFFF"><ellipse cx="16" cy="18" rx="7" ry="9"/><ellipse cx="48" cy="18" rx="7" ry="9"/><ellipse cx="7" cy="34" rx="6" ry="8"/><ellipse cx="57" cy="34" rx="6" ry="8"/><path d="M32 26c-11 0-19 8.5-19 17.5C13 53 21 58 32 58s19-5 19-14.5C51 34.5 43 26 32 26z"/></g><path fill="#FF5A1A" d="M32 51.5l-6.8-6.4c-2.9-2.7-2.9-6.9 0-9.2 2.3-1.9 5.3-1.4 6.8.6 1.5-2 4.5-2.5 6.8-.6 2.9 2.3 2.9 6.5 0 9.2L32 51.5z"/></svg>
+      </span>
       Huellario
     </a>
     <div class="nav-links">
       <a href="#como">Cómo funciona</a>
       <a href="#funciones">Funciones</a>
+      <a href="#pantallas">La app</a>
       <a href="#familia">Familia</a>
       <a href="#descargar">Descargar</a>
     </div>
@@ -153,82 +180,88 @@
   <section class="hero wrap">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">App para familias con mascotas</span>
-        <h1>¿Alguien ya alimentó a la <em>Luna</em>?</h1>
-        <p>Con Huellario nunca más esa duda. Rutinas, comidas, vacunas y salud de tu mascota en un solo lugar, compartido con todos los que la cuidan. Cuando alguien completa una tarea, el resto de la familia lo sabe al instante.</p>
+        <span class="pill">🐾 App para familias con mascotas</span>
+        <h1>¿Alguien ya alimentó a <em>Chubi</em>?</h1>
+        <p>Con Huellario nunca más esa duda. Rutinas, comidas, vacunas y salud de tus mascotas en un solo lugar, compartido con todos los que las cuidan. Cuando alguien completa una tarea, el resto lo sabe al instante.</p>
         <a class="cta" href="#descargar">Descárgala gratis</a>
         <span class="cta-note">Disponible para Android en Google Play</span>
       </div>
-      <div class="card-stack" aria-hidden="true">
-        <div class="rutina-card">
-          <div class="titulo">
-            <div class="pet">🐶</div>
-            <div><strong>Luna</strong><span>Rutinas de hoy</span></div>
-          </div>
-          <div class="tarea hecha"><span class="check">✓</span><span class="txt">Desayuno</span><span class="quien">Camila · 8:15</span></div>
-          <div class="tarea hecha"><span class="check">✓</span><span class="txt">Antiparasitario</span><span class="quien">Tomás · 9:02</span></div>
-          <div class="tarea pend"><span class="check">✓</span><span class="txt">Paseo de la tarde</span><span class="quien">Pendiente</span></div>
-        </div>
-        <div class="aviso">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.1-1.6-5.6-4.5-6.3V4c0-.8-.7-1.5-1.5-1.5S10.5 3.2 10.5 4v.7C7.6 5.4 6 7.9 6 11v5l-2 2v1h16v-1l-2-2z" fill="#D9A441"/></svg>
-          Tomás completó “Antiparasitario” — no hace falta repetirla ✓
-        </div>
+      <div class="hero-phone">
+        <div class="phone"><img src="img/inicio.jpg" alt="Pantalla de inicio de Huellario mostrando el perfil de Chubi con su peso, medicamentos, prevención y tareas pendientes"></div>
+        <div class="toast" aria-hidden="true"><span class="ok">✅</span> David completó “Paseo 1” — no hace falta repetirlo</div>
       </div>
     </div>
   </section>
 
   <section id="como" class="wrap">
-    <h2 class="sec-title">Cuidar en equipo, sin repetir ni olvidar</h2>
+    <h2 class="sec-title">Cuidar en equipo, <em>sin repetir ni olvidar</em></h2>
     <p class="sec-sub">Tres pasos y toda la casa queda coordinada.</p>
     <div class="pasos">
-      <div class="paso"><div class="icono">🐾</div><h3>1. Registra a tu mascota</h3><p>Su ficha completa: datos, foto, peso, veterinario y todo su historial de salud desde el primer día.</p></div>
-      <div class="paso"><div class="icono">💌</div><h3>2. Invita a tu familia</h3><p>Comparte un código con quienes también la cuidan: tu pareja, tus hijos, la abuela o quien la reciba en vacaciones.</p></div>
-      <div class="paso"><div class="icono">✅</div><h3>3. Coordinen el día a día</h3><p>Cada comida, paseo o medicamento queda registrado con quién lo hizo. Si alguien lo completa, los demás lo saben al momento.</p></div>
+      <div class="card paso"><div class="icono">🐶</div><h3>1. Registra a tu mascota</h3><p>Su ficha completa: datos, foto, peso, alergias y todo su historial de salud desde el primer día.</p></div>
+      <div class="card paso"><div class="icono">💌</div><h3>2. Invita a tu familia</h3><p>Comparte un código con quienes también la cuidan: tu pareja, tus hijos, la abuela o quien la reciba en vacaciones.</p></div>
+      <div class="card paso"><div class="icono">✅</div><h3>3. Coordinen el día a día</h3><p>Cada comida, paseo o medicamento queda registrado con quién lo hizo. Si alguien lo completa, los demás lo saben al momento.</p></div>
     </div>
   </section>
 
   <section id="funciones" class="wrap">
-    <h2 class="sec-title">Todo lo de tu mascota, en orden</h2>
-    <p class="sec-sub">Seis módulos pensados para el cuidado real de cada día.</p>
+    <h2 class="sec-title">Todo lo de tu mascota, <em>en orden</em></h2>
+    <p class="sec-sub">Las mismas secciones que verás en la app, cada una con su color.</p>
     <div class="features">
-      <div class="feature"><h3>🛡️ Prevención</h3><p>Vacunas, desparasitaciones y antiparasitarios con recordatorio de la próxima dosis. Su carnet, siempre al día.</p></div>
-      <div class="feature"><h3>⏰ Rutinas</h3><p>Comidas, medicamentos y paseos con avisos a la hora exacta y botones para marcar “Completada” desde la notificación.</p></div>
-      <div class="feature"><h3>🍖 Alimentación</h3><p>Registra qué come y cuánto, con historial por día para detectar cambios de apetito a tiempo.</p></div>
-      <div class="feature"><h3>📋 Registros</h3><p>Síntomas, consultas, cirugías y peso en una línea de tiempo clara con fotos y documentos adjuntos.</p></div>
-      <div class="feature"><h3>📄 Informe veterinario</h3><p>Genera un PDF con el historial del período que elijas y llévalo a la consulta o envíalo por WhatsApp.</p></div>
-      <div class="feature"><h3>☀️ Clima para el paseo</h3><p>Antes de salir, revisa el tiempo de tu zona directamente en la app.</p></div>
+      <div class="feature f-prevencion"><div class="tag">🛡️</div><h3>Prevención</h3><p>Vacunas, desparasitaciones y exámenes con aviso de la próxima dosis. Su carnet, siempre al día.</p></div>
+      <div class="feature f-rutinas"><div class="tag">🔁</div><h3>Rutinas</h3><p>Medicamentos, paseos, alimentación e higiene con recordatorios a la hora exacta y alertas de atraso.</p></div>
+      <div class="feature f-alimentacion"><div class="tag">🍽️</div><h3>Alimentación</h3><p>Registra qué come y cuánto, con historial diario para detectar cambios de apetito a tiempo.</p></div>
+      <div class="feature f-registros"><div class="tag">📋</div><h3>Registros</h3><p>Síntomas, consultas y peso en una línea de tiempo clara, con fotos y documentos adjuntos.</p></div>
+      <div class="feature f-informe"><div class="tag">📄</div><h3>Historial en PDF</h3><p>Comparte el historial completo con un toque y llévalo a la consulta o envíalo por WhatsApp.</p></div>
+      <div class="feature f-familia"><div class="tag">👨‍👩‍👧</div><h3>Familia</h3><p>Co-tutores que ven y registran todo, con avisos de la actividad de cada uno.</p></div>
     </div>
   </section>
 
-  <section id="familia">
-    <div class="familia">
-      <div class="familia-inner">
-        <div>
-          <h2>La diferencia de Huellario: <em>la familia</em></h2>
-          <p>Otras apps guardan el carnet. Huellario coordina a las personas. Porque una mascota no tiene un solo cuidador: tiene una manada.</p>
-        </div>
-        <ul>
-          <li>Co-tutores que ven y registran todo en tiempo real</li>
-          <li>Aviso inmediato cuando alguien completa una rutina</li>
-          <li>Notas entre tutores: “quedó con poco alimento” 📝</li>
-          <li>Cada registro muestra quién lo hizo y a qué hora</li>
-          <li>Perfecto para parejas, familias y cuidados en vacaciones</li>
-        </ul>
+  <section id="pantallas" class="wrap">
+    <h2 class="sec-title">Así se ve <em>por dentro</em></h2>
+    <p class="sec-sub">Pantallas reales de Huellario.</p>
+    <div class="galeria">
+      <figure>
+        <div class="phone"><img src="img/familia.jpg" alt="Inicio de Huellario con las mascotas de la familia: Chubi con 8 pendientes y Luna al día"></div>
+        <figcaption>Tu familia de mascotas<span>Todas en un vistazo, con sus pendientes</span></figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><img src="img/inicio.jpg" alt="Perfil de Chubi con peso, medicamentos, prevención y tareas de hoy"></div>
+        <figcaption>La ficha de cada una<span>Peso, salud, alergias y tareas de hoy</span></figcaption>
+      </figure>
+      <figure>
+        <div class="phone"><img src="img/rutinas.jpg" alt="Sección Rutinas con medicamentos, paseos, alimentación e higiene y sus alertas"></div>
+        <figcaption>Rutinas que avisan<span>Medicamentos, paseos y comidas a su hora</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="familia" class="wrap">
+    <div class="familia-card">
+      <div>
+        <h2>La diferencia de Huellario: <em style="font-style:normal;color:var(--primary)">la familia</em> 💜</h2>
+        <p class="intro">Otras apps guardan el carnet. Huellario coordina a las personas. Porque una mascota no tiene un solo cuidador: tiene una manada.</p>
       </div>
+      <ul>
+        <li>✅ Co-tutores que ven y registran todo en tiempo real</li>
+        <li>🔔 Aviso inmediato cuando alguien completa una rutina</li>
+        <li>📝 Notas entre tutores: “quedó con poco alimento”</li>
+        <li>🐾 Cada registro muestra quién lo hizo y a qué hora</li>
+        <li>🧳 Perfecto para vacaciones y cuidadores temporales</li>
+      </ul>
     </div>
   </section>
 
   <section id="descargar" class="wrap descarga">
-    <h2 class="sec-title">Empieza hoy, es gratis</h2>
-    <p class="sec-sub" style="margin-inline:auto">Descarga Huellario, crea la ficha de tu mascota e invita a tu familia en menos de cinco minutos.</p>
+    <h2 class="sec-title">Empieza hoy, <em>es gratis</em></h2>
+    <p class="sec-sub">Descarga Huellario, crea la ficha de tu mascota e invita a tu familia en menos de cinco minutos.</p>
     <!-- Reemplazar # por el enlace real de Google Play al publicar -->
-    <a class="cta" href="#" aria-disabled="true">Próximamente en Google Play</a>
+    <a class="cta" href="#">🐾 Próximamente en Google Play</a>
   </section>
 </main>
 
 <footer>
   <div class="wrap foot">
-    <span>© 2026 Huellario · Hecho con 🐾 y ❤️ en Chile</span>
+    <span>© 2026 Huellario · Hecho con 🐾 y 🧡 en Chile</span>
     <span>
       <a href="privacidad.html">Política de privacidad</a>
       <a href="eliminar-cuenta.html">Eliminar mi cuenta</a>
