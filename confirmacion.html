@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Correo confirmado — Manadario</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --crema:#FFFCF7; --papel:#FFFFFF; --borde:#EFE4DA;
+    --naranja:#FF5A1A; --naranja-alt:#FF7A42; --naranja-suave:#FFE7DA;
+    --petroleo:#0F7C74; --petroleo-hondo:#0A5E58; --petroleo-suave:#D5EBE9;
+    --tinta:#1D2A33; --tinta-tenue:#75858F;
+    --sombra:0 1px 2px rgba(34,48,58,.04), 0 8px 24px rgba(15,124,116,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Nunito',system-ui,sans-serif;background:var(--crema);color:var(--tinta);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  h1{font-weight:800;letter-spacing:-.03em;line-height:1.1}
+  a{color:var(--petroleo-hondo);font-weight:700}
+  header{padding:22px 20px}
+  .marca{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.2rem;letter-spacing:-.035em;text-decoration:none;color:var(--tinta);width:min(760px,100% - 0px);margin-inline:auto}
+  .marca .sello{width:40px;height:40px;border-radius:13px;background:linear-gradient(140deg,var(--naranja),var(--naranja-alt));display:grid;place-items:center;box-shadow:0 6px 14px rgba(255,90,26,.3);flex-shrink:0}
+  .marca .sello svg{width:23px;height:23px}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:20px}
+  .tarjeta{width:min(480px,100%);background:var(--papel);border:1px solid var(--borde);border-radius:28px;padding:44px 34px;box-shadow:var(--sombra);text-align:center}
+  .check{width:72px;height:72px;border-radius:50%;background:var(--petroleo-suave);display:grid;place-items:center;margin:0 auto 22px}
+  .check svg{width:36px;height:36px}
+  h1{font-size:clamp(1.5rem,4vw,1.9rem);margin-bottom:10px}
+  .sub{color:var(--tinta-tenue);font-weight:600;font-size:1rem;margin-bottom:30px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:800;border-radius:999px;transition:transform .18s ease,box-shadow .18s ease;border:none;cursor:pointer;font-family:inherit}
+  .btn-grande{font-size:1.05rem;padding:17px 30px;width:100%;background:linear-gradient(140deg,var(--naranja),var(--naranja-alt));color:#fff;box-shadow:0 12px 26px rgba(255,90,26,.3)}
+  .btn-grande:hover{transform:translateY(-2px)}
+  .nota{margin-top:22px;font-size:.87rem;color:var(--tinta-tenue);font-weight:600}
+  footer{padding:24px 20px;text-align:center;font-size:.85rem;font-weight:600;color:var(--tinta-tenue)}
+</style>
+</head>
+<body>
+<header>
+  <a class="marca" href="index.html"><span class="sello"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#fff"><ellipse cx="32" cy="12" rx="6.5" ry="8.5"/><ellipse cx="15" cy="17" rx="6.5" ry="8.5"/><ellipse cx="49" cy="17" rx="6.5" ry="8.5"/><ellipse cx="5.5" cy="34" rx="5.5" ry="7.5"/><ellipse cx="58.5" cy="34" rx="5.5" ry="7.5"/><path d="M32 27c-11 0-19 8.3-19 17.2C13 53.5 21 58.5 32 58.5s19-5 19-14.3C51 35.3 43 27 32 27z"/></g><path fill="#FF5A1A" d="M32 52.5l-6.8-6.4c-2.9-2.7-2.9-6.9 0-9.2 2.3-1.9 5.3-1.4 6.8.6 1.5-2 4.5-2.5 6.8-.6 2.9 2.3 2.9 6.5 0 9.2L32 52.5z"/></svg></span> Manadario</a>
+</header>
+<main>
+  <div class="tarjeta">
+    <div class="check">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M5 13l4 4L19 7" stroke="#0A5E58" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <h1>¡Tu correo fue confirmado!</h1>
+    <p class="sub">Ya puedes volver a la app Manadario e iniciar sesión con tu cuenta.</p>
+    <a class="btn btn-grande" id="abrirApp" href="manadario://login">Abrir la app Manadario</a>
+    <p class="nota" id="notaEscritorio" hidden>Estás viendo esto desde un computador. Abre la app Manadario desde tu celular para continuar — no hace falta hacer nada más acá.</p>
+  </div>
+</main>
+<footer>© 2026 Manadario · Hecho en Chile</footer>
+<script>
+  // Heurística simple, solo para mostrar la nota correcta — no bloquea nada
+  // si falla la detección, el botón sigue funcionando igual en el celular.
+  var esProbablementeCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+  if (!esProbablementeCelular) {
+    document.getElementById('notaEscritorio').hidden = false;
+  }
+</script>
+</body>
+</html>
