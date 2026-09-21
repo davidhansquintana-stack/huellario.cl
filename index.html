@@ -202,26 +202,6 @@
   #manada h2{font-size:clamp(2.2rem,5vw,3.6rem);font-weight:900;line-height:1.1;letter-spacing:-.025em}
   .cabeza h2{font-weight:900;letter-spacing:-.025em}
 
-  /* ── Captura de email ── */
-  .captura-email{max-width:480px;margin:36px auto 0;background:#fff;border-radius:20px;padding:32px 28px;box-shadow:0 1px 3px rgba(29,42,51,.06),0 12px 36px rgba(29,42,51,.1);text-align:center;position:relative;overflow:hidden}
-  .captura-email::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,#FF5A1A,#FF7A42,#D99A2B)}
-  .captura-email h3{font-size:1.25rem;font-weight:800;color:#1D2A33;margin-bottom:8px}
-  .captura-email p{font-size:.92rem;color:#75858F;margin-bottom:20px;line-height:1.5}
-  .captura-email .form-row{display:flex;gap:10px;align-items:stretch}
-  .captura-email input[type="email"]{flex:1;padding:14px 18px;border:2px solid #EFE4DA;border-radius:14px;font-family:'Nunito',system-ui,sans-serif;font-size:.95rem;color:#1D2A33;background:#FFFCF7;outline:none;transition:border-color .2s ease}
-  .captura-email input[type="email"]:focus{border-color:#FF5A1A}
-  .captura-email input[type="email"]::placeholder{color:#B5AFA9}
-  .captura-email button{padding:14px 24px;background:#FF5A1A;color:#FFF;border:none;border-radius:14px;font-family:'Nunito',system-ui,sans-serif;font-size:.95rem;font-weight:800;cursor:pointer;white-space:nowrap;transition:background .2s ease,transform .15s ease}
-  .captura-email button:hover{background:#E04E14;transform:translateY(-1px)}
-  .captura-email .nota{font-size:.78rem;color:#B5AFA9;margin-top:12px}
-  .captura-email .exito{display:none;padding:20px 0 8px}
-  .captura-email .exito svg{width:48px;height:48px;margin-bottom:12px}
-  .captura-email .exito h4{font-size:1.1rem;font-weight:800;color:#0F7C74;margin-bottom:4px}
-  .captura-email .exito p{font-size:.9rem;color:#75858F;margin:0}
-  .captura-email.enviado .form-row,.captura-email.enviado>p,.captura-email.enviado>h3,.captura-email.enviado .nota{display:none}
-  .captura-email.enviado .exito{display:block}
-  @media(max-width:480px){.captura-email .form-row{flex-direction:column}.captura-email button{width:100%}.captura-email{margin:28px 16px 0;padding:24px 20px}}
-
   /* ── Animaciones de scroll ── */
   @media (prefers-reduced-motion:no-preference){
     .revela{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.22,1,.36,1),transform .6s cubic-bezier(.22,1,.36,1)}
@@ -487,21 +467,6 @@
           <p>Crea la ficha de tu mascota, invita a tu gente y dejen de preguntarse quién hizo qué.</p>
           <!-- Reemplazar # por el enlace de Google Play al publicar -->
           <a class="btn btn-medio" href="#">Próximamente en Google Play</a>
-
-          <div class="captura-email" id="formCaptura">
-            <h3>Avísame cuando esté disponible</h3>
-            <p>Sé el primero en descargar Manadario. Sin spam, solo el aviso.</p>
-            <div class="form-row">
-              <input type="email" id="emailInput" placeholder="tu@correo.com" required>
-              <button onclick="registrarEmail()">Avísame</button>
-            </div>
-            <div class="nota">Solo usaremos tu email para avisarte del lanzamiento.</div>
-            <div class="exito">
-              <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="22" fill="#D5EBE9"/><path d="M15 24l6 6 12-13" stroke="#0F7C74" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              <h4>¡Listo!</h4>
-              <p>Te avisaremos apenas Manadario esté en Google Play.</p>
-            </div>
-          </div>
         </div>
       </div>
     </div>
@@ -528,30 +493,13 @@
     document.querySelectorAll('.revela').forEach((el) => el.classList.add('visible'));
   }
 
-  // Formulario de captura de email
-  function registrarEmail() {
-    var input = document.getElementById('emailInput');
-    var form = document.getElementById('formCaptura');
-    var email = input.value.trim();
-    if (!email || email.indexOf('@') < 0 || email.indexOf('.') < 0) {
-      input.style.borderColor = '#FF5A1A';
-      input.focus();
-      return;
-    }
-    // Guardar en localStorage (reemplazar con endpoint real en producción)
-    var emails = JSON.parse(localStorage.getItem('manadario_emails') || '[]');
-    emails.push({ email: email, fecha: new Date().toISOString() });
-    localStorage.setItem('manadario_emails', JSON.stringify(emails));
-    form.classList.add('enviado');
-  }
-
   const videoHero = document.getElementById('video-hero');
   const btnSonido = document.getElementById('btn-sonido');
   if (videoHero && btnSonido) {
-    videoHero.volume = 0.4; // Volumen al 40% para evitar saturación
+    videoHero.volume = 0.75;
     btnSonido.addEventListener('click', () => {
       videoHero.muted = !videoHero.muted;
-      if (!videoHero.muted) videoHero.volume = 0.4; // Siempre al 40%
+      if (!videoHero.muted) videoHero.volume = 0.75;
       btnSonido.classList.toggle('activo', !videoHero.muted);
       btnSonido.setAttribute('aria-pressed', String(!videoHero.muted));
       btnSonido.setAttribute('aria-label', videoHero.muted ? 'Activar sonido del video' : 'Silenciar video');
