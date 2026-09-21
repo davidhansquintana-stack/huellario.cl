@@ -548,8 +548,10 @@
   const videoHero = document.getElementById('video-hero');
   const btnSonido = document.getElementById('btn-sonido');
   if (videoHero && btnSonido) {
+    videoHero.volume = 0.4; // Volumen al 40% para evitar saturación
     btnSonido.addEventListener('click', () => {
       videoHero.muted = !videoHero.muted;
+      if (!videoHero.muted) videoHero.volume = 0.4; // Siempre al 40%
       btnSonido.classList.toggle('activo', !videoHero.muted);
       btnSonido.setAttribute('aria-pressed', String(!videoHero.muted));
       btnSonido.setAttribute('aria-label', videoHero.muted ? 'Activar sonido del video' : 'Silenciar video');
