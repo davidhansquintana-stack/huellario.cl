@@ -12,41 +12,52 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Correo confirmado — Manadario</title>
+<meta name="theme-color" content="#0B0F19">
+<link rel="icon" type="image/png" href="icono.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
   :root{
-    --crema:#FFFCF7; --papel:#FFFFFF; --borde:#EFE4DA;
-    --naranja:#FF5A1A; --naranja-alt:#FF7A42; --naranja-suave:#FFE7DA;
-    --petroleo:#0F7C74; --petroleo-hondo:#0A5E58; --petroleo-suave:#D5EBE9;
-    --tinta:#1D2A33; --tinta-tenue:#75858F;
-    --sombra:0 1px 2px rgba(34,48,58,.04), 0 8px 24px rgba(15,124,116,.07);
+    color-scheme:dark;
+    --fondo:#0B0F19; --vidrio:rgba(255,255,255,.055); --vidrio-fuerte:rgba(255,255,255,.09); --linea:rgba(255,255,255,.10); --linea-suave:rgba(255,255,255,.06);
+    --texto:#E6EAF2; --texto-2:#94A3B8; --tenue:#64748B;
+    --cian:#0891B2; --cian-l:#06B6D4; --cian-t:#7FDBEA; --cian-s:#0B2A33;
+    --violeta:#8B5CF6; --magenta-t:#F9A8D4;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  body{font-family:'Nunito',system-ui,sans-serif;background:var(--crema);color:var(--tinta);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
-  h1{font-weight:800;letter-spacing:-.03em;line-height:1.1}
-  a{color:var(--petroleo-hondo);font-weight:700}
+  html{background:var(--fondo)}
+  .orbes{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(36rem 28rem at 0% -8%,rgba(6,182,212,.13),transparent 62%),
+               radial-gradient(34rem 26rem at 104% 30%,rgba(236,72,153,.08),transparent 62%),
+               radial-gradient(40rem 30rem at 40% 112%,rgba(139,92,246,.12),transparent 62%)}
+  body{font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  body>header,body>main,body>footer{position:relative;z-index:1}
+  h1{font-weight:800;letter-spacing:-.03em;line-height:1.1;text-wrap:balance}
+  a{color:var(--cian-t);font-weight:600}
   header{padding:22px 20px}
-  .marca{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.2rem;letter-spacing:-.035em;text-decoration:none;color:var(--tinta);width:min(760px,100% - 0px);margin-inline:auto}
-  .marca .sello{width:40px;height:40px;border-radius:13px;background:linear-gradient(140deg,var(--naranja),var(--naranja-alt));display:grid;place-items:center;box-shadow:0 6px 14px rgba(255,90,26,.3);flex-shrink:0}
-  .marca .sello svg{width:23px;height:23px}
+  .marca{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.2rem;letter-spacing:-.035em;text-decoration:none;color:var(--texto);width:min(760px,100%);margin-inline:auto}
+  .marca .sello{width:40px;height:40px;border-radius:12px;overflow:hidden;border:1px solid var(--linea);flex-shrink:0}
+  .marca .sello img{width:100%;height:100%;display:block}
   main{flex:1;display:flex;align-items:center;justify-content:center;padding:20px}
-  .tarjeta{width:min(480px,100%);background:var(--papel);border:1px solid var(--borde);border-radius:28px;padding:44px 34px;box-shadow:var(--sombra);text-align:center}
-  .check{width:72px;height:72px;border-radius:50%;background:var(--petroleo-suave);display:grid;place-items:center;margin:0 auto 22px}
+  .tarjeta{width:min(480px,100%);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid var(--linea);border-radius:28px;padding:44px 34px;text-align:center;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .check{width:72px;height:72px;border-radius:50%;background:var(--cian-s);display:grid;place-items:center;margin:0 auto 22px}
   .check svg{width:36px;height:36px}
+  .check svg path{stroke:var(--cian-t)}
   h1{font-size:clamp(1.5rem,4vw,1.9rem);margin-bottom:10px}
-  .sub{color:var(--tinta-tenue);font-weight:600;font-size:1rem;margin-bottom:30px}
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:800;border-radius:999px;transition:transform .18s ease,box-shadow .18s ease;border:none;cursor:pointer;font-family:inherit}
-  .btn-grande{font-size:1.05rem;padding:17px 30px;width:100%;background:linear-gradient(140deg,var(--naranja),var(--naranja-alt));color:#fff;box-shadow:0 12px 26px rgba(255,90,26,.3)}
+  .sub{color:var(--texto-2);font-size:1rem;margin-bottom:30px}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:700;border-radius:999px;transition:transform .18s ease,box-shadow .18s ease;border:none;cursor:pointer;font-family:inherit}
+  .btn-grande{font-size:1.05rem;padding:17px 30px;width:100%;color:#fff;background:linear-gradient(135deg,var(--cian),#7C3AED);box-shadow:0 12px 30px rgba(8,145,178,.25),inset 0 1px 0 rgba(255,255,255,.2)}
   .btn-grande:hover{transform:translateY(-2px)}
-  .nota{margin-top:22px;font-size:.87rem;color:var(--tinta-tenue);font-weight:600}
-  footer{padding:24px 20px;text-align:center;font-size:.85rem;font-weight:600;color:var(--tinta-tenue)}
+  .nota{margin-top:22px;font-size:.87rem;color:var(--texto-2)}
+  footer{padding:24px 20px;text-align:center;font-size:.85rem;color:var(--tenue)}
 </style>
 </head>
 <body>
+<div class="orbes" aria-hidden="true"></div>
 <header>
-  <a class="marca" href="index.html"><span class="sello"><svg viewBox="0 0 64 64" aria-hidden="true"><g fill="#fff"><ellipse cx="20" cy="14" rx="7.5" ry="9.5"/><ellipse cx="44" cy="14" rx="7.5" ry="9.5"/><ellipse cx="6.5" cy="30" rx="6" ry="8"/><ellipse cx="57.5" cy="30" rx="6" ry="8"/><path d="M32 27c-11 0-19 8.3-19 17.2C13 53.5 21 58.5 32 58.5s19-5 19-14.3C51 35.3 43 27 32 27z"/></g><path fill="#FF5A1A" d="M32 52.5l-6.8-6.4c-2.9-2.7-2.9-6.9 0-9.2 2.3-1.9 5.3-1.4 6.8.6 1.5-2 4.5-2.5 6.8-.6 2.9 2.3 2.9 6.5 0 9.2L32 52.5z"/></svg></span> Manadario</a>
+  <a class="marca" href="index.html"><span class="sello"><img src="icono.png" alt="" width="40" height="40"></span> Manadario</a>
 </header>
 <main>
   <div class="tarjeta">
