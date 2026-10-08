@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "cl.manadario.app",
+      "sha256_cert_fingerprints": [
+        "68:63:53:A6:4A:04:DF:7F:5E:84:51:E7:3F:B0:9A:E5:A4:39:93:A6:87:04:20:E1:19:5F:FA:1F:88:09:FF:BF"
+      ]
+    }
+  }
+]
