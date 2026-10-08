@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<!-- Sin Google Analytics a propósito: la URL trae el código de invitación
+     (?code=...), que funciona como una llave de acceso a la familia, y gtag
+     lo enviaría completo como page_location. -->
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Invitación — Manadario</title>
+<meta name="theme-color" content="#0B0F19">
+<link rel="icon" type="image/png" href="icono.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    color-scheme:dark;
+    --fondo:#0B0F19; --vidrio:rgba(255,255,255,.055); --vidrio-fuerte:rgba(255,255,255,.09); --linea:rgba(255,255,255,.10); --linea-suave:rgba(255,255,255,.06);
+    --texto:#E6EAF2; --texto-2:#94A3B8; --tenue:#64748B;
+    --cian:#0891B2; --cian-l:#06B6D4; --cian-t:#7FDBEA; --cian-s:#0B2A33;
+    --violeta:#8B5CF6; --magenta-t:#F9A8D4;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--fondo)}
+  .orbes{position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:radial-gradient(36rem 28rem at 0% -8%,rgba(6,182,212,.13),transparent 62%),
+               radial-gradient(34rem 26rem at 104% 30%,rgba(236,72,153,.08),transparent 62%),
+               radial-gradient(40rem 30rem at 40% 112%,rgba(139,92,246,.12),transparent 62%)}
+  body{font-family:'Plus Jakarta Sans',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--fondo);color:var(--texto);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100vh;display:flex;flex-direction:column}
+  body>header,body>main,body>footer{position:relative;z-index:1}
+  h1{font-weight:800;letter-spacing:-.03em;line-height:1.1;text-wrap:balance}
+  a{color:var(--cian-t);font-weight:600}
+  header{padding:22px 20px}
+  .marca{display:flex;align-items:center;gap:11px;font-weight:800;font-size:1.2rem;letter-spacing:-.035em;text-decoration:none;color:var(--texto);width:min(760px,100%);margin-inline:auto}
+  .marca .sello{width:40px;height:40px;border-radius:12px;overflow:hidden;border:1px solid var(--linea);flex-shrink:0}
+  .marca .sello img{width:100%;height:100%;display:block}
+  main{flex:1;display:flex;align-items:center;justify-content:center;padding:20px}
+  .tarjeta{width:min(480px,100%);background:linear-gradient(180deg,rgba(255,255,255,.07),rgba(255,255,255,.025));border:1px solid var(--linea);border-radius:28px;padding:40px 30px;text-align:center;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .icono{width:72px;height:72px;border-radius:50%;background:var(--cian-s);display:grid;place-items:center;margin:0 auto 22px}
+  .icono svg{width:34px;height:34px}
+  h1{font-size:clamp(1.5rem,4vw,1.9rem);margin-bottom:10px}
+  .sub{color:var(--texto-2);font-size:1rem;margin-bottom:26px}
+  .codigo-caja{background:var(--vidrio);border:1px solid var(--linea);border-radius:18px;padding:16px;margin-bottom:22px}
+  .codigo-etq{font-size:.75rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--texto-2)}
+  .codigo{font-size:2rem;font-weight:800;letter-spacing:.18em;color:var(--cian-t);margin:4px 0 10px;font-variant-numeric:tabular-nums;word-break:break-all}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;font-weight:700;border-radius:999px;transition:transform .18s ease,box-shadow .18s ease,background .18s ease;border:none;cursor:pointer;font-family:inherit}
+  .btn-chico{font-size:.88rem;padding:9px 18px;color:var(--texto);background:var(--vidrio-fuerte);border:1px solid var(--linea)}
+  .btn-chico:hover{background:rgba(255,255,255,.14)}
+  .btn-grande{font-size:1.05rem;padding:17px 30px;width:100%;color:#fff;background:linear-gradient(135deg,var(--cian),#7C3AED);box-shadow:0 12px 30px rgba(8,145,178,.25),inset 0 1px 0 rgba(255,255,255,.2)}
+  .btn-grande:hover{transform:translateY(-2px)}
+  .btn-play{font-size:1rem;padding:15px 30px;width:100%;margin-top:12px;color:var(--texto);background:var(--vidrio-fuerte);border:1px solid var(--linea)}
+  .btn-play:hover{background:rgba(255,255,255,.14)}
+  .pasos{text-align:left;margin-top:28px;padding-top:22px;border-top:1px solid var(--linea-suave)}
+  .pasos h2{font-size:.95rem;font-weight:700;margin-bottom:10px}
+  .pasos ol{padding-left:20px;color:var(--texto-2);font-size:.92rem;display:grid;gap:6px}
+  .pasos strong{color:var(--texto);font-weight:600}
+  .nota{margin-top:20px;font-size:.87rem;color:var(--texto-2)}
+  footer{padding:24px 20px;text-align:center;font-size:.85rem;color:var(--tenue)}
+  @media (max-width:420px){.tarjeta{padding:32px 20px}.codigo{font-size:1.6rem}}
+</style>
+</head>
+<body>
+<div class="orbes" aria-hidden="true"></div>
+<header>
+  <a class="marca" href="index.html"><span class="sello"><img src="icono.png" alt="" width="40" height="40"></span> Manadario</a>
+</header>
+<main>
+  <!-- Con código válido -->
+  <div class="tarjeta" id="conCodigo" hidden>
+    <div class="icono">
+      <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="9" cy="8" r="3.1" stroke="#7FDBEA" stroke-width="2"/><circle cx="16.5" cy="9.5" r="2.3" stroke="#7FDBEA" stroke-width="2"/><path d="M3.5 19v-1.2A4.3 4.3 0 017.8 13.5h2.4a4.3 4.3 0 014.3 4.3V19M16 13.6a4 4 0 014.5 3.9V19" stroke="#7FDBEA" stroke-width="2" stroke-linecap="round"/></svg>
+    </div>
+    <h1>Te invitaron a cuidar sus mascotas</h1>
+    <p class="sub">Únete como co-tutor en Manadario y compartan rutinas, salud y avisos de sus mascotas.</p>
+
+    <div class="codigo-caja">
+      <div class="codigo-etq">Tu código de invitación</div>
+      <div class="codigo" id="codigo"></div>
+      <button class="btn btn-chico" id="copiar" type="button">Copiar código</button>
+    </div>
+
+    <a class="btn btn-grande" id="abrirApp" href="#">Abrir en Manadario</a>
+    <a class="btn btn-play" id="irPlay" href="https://play.google.com/store/apps/details?id=cl.manadario.app" target="_blank" rel="noopener">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 20.5l9.6-9.6 2.6 2.6-10.1 5.9c-.8.5-1.8.4-2.1 1.1zM3.6 3.5c.3.7 1.3.6 2.1 1.1l10.1 5.9-2.6 2.6-9.6-9.6zM17.7 9.2l2.9 1.7c1 .6 1 1.6 0 2.2l-2.9 1.7-2.9-2.8 2.9-2.8zM3 4.3v15.4c0 .2 0 .4.1.6L11 12 3.1 3.7c-.1.2-.1.4-.1.6z"/></svg>
+      Descargar en Google Play
+    </a>
+
+    <div class="pasos">
+      <h2>¿Todavía no tienes la app?</h2>
+      <ol>
+        <li><strong>Copia el código</strong> de arriba y descarga Manadario desde Google Play.</li>
+        <li>Crea tu cuenta y confirma tu correo.</li>
+        <li>Ve a <strong>Familia → "Tengo un código de invitación"</strong> y pega el código.</li>
+      </ol>
+    </div>
+    <p class="nota" id="notaEscritorio" hidden>Estás viendo esto desde un computador. Abre este mismo link desde tu celular Android para unirte.</p>
+    <p class="nota">La invitación vale por 7 días desde que te la enviaron.</p>
+  </div>
+
+  <!-- Sin código o con un código mal formado -->
+  <div class="tarjeta" id="sinCodigo" hidden>
+    <h1>Este link de invitación no está completo</h1>
+    <p class="sub">No trae un código válido. Pídele a quien te invitó que te lo vuelva a enviar desde Manadario.</p>
+    <a class="btn btn-grande" href="index.html">Conocer Manadario</a>
+  </div>
+</main>
+<footer>© 2026 Manadario · Hecho en Chile</footer>
+<script>
+  // Mismo alfabeto que generateInviteCode() en la app (sin 0/O/1/I).
+  var PLAY = 'https://play.google.com/store/apps/details?id=cl.manadario.app';
+  var crudo = new URLSearchParams(location.search).get('code') || '';
+  var codigo = crudo.trim().toUpperCase();
+  var valido = /^[A-HJ-NP-Z2-9]{6,10}$/.test(codigo);
+
+  if (!valido) {
+    document.getElementById('sinCodigo').hidden = false;
+  } else {
+    document.getElementById('conCodigo').hidden = false;
+    document.getElementById('codigo').textContent = codigo;
+
+    var esAndroid = /Android/i.test(navigator.userAgent);
+    var esCelular = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    var ruta = 'modals/accept-invitation?code=' + encodeURIComponent(codigo);
+    var abrir = document.getElementById('abrirApp');
+    // En Android, un intent:// abre la app si está instalada y, si no, Chrome
+    // salta solo a la ficha de Play (browser_fallback_url). En otros sistemas
+    // queda el esquema propio, que no hace nada si no hay app.
+    abrir.href = esAndroid
+      ? 'intent://' + ruta + '#Intent;scheme=manadario;package=cl.manadario.app;S.browser_fallback_url=' + encodeURIComponent(PLAY) + ';end'
+      : 'manadario://' + ruta;
+    if (!esCelular) document.getElementById('notaEscritorio').hidden = false;
+
+    function copiarCodigo() {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(codigo).then(function () { return true; }, function () { return false; });
+      }
+      return Promise.resolve(false);
+    }
+
+    var btnCopiar = document.getElementById('copiar');
+    btnCopiar.addEventListener('click', function () {
+      copiarCodigo().then(function (ok) {
+        btnCopiar.textContent = ok ? '¡Copiado!' : 'Mantén presionado el código para copiarlo';
+        if (ok) setTimeout(function () { btnCopiar.textContent = 'Copiar código'; }, 2500);
+      });
+    });
+
+    // Copiar también al abrir la app o ir a Play: si la persona no tiene
+    // sesión iniciada, la app pasa por el login y el código del link se pierde,
+    // pero el botón "Pegar" de la pantalla de invitación lo recupera.
+    // No se espera la promesa para no perder el gesto del usuario en la navegación.
+    abrir.addEventListener('click', function () { copiarCodigo(); });
+    document.getElementById('irPlay').addEventListener('click', function () { copiarCodigo(); });
+  }
+</script>
+</body>
+</html>
